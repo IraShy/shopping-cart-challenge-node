@@ -34,37 +34,31 @@ class ShoppingCart {
       totalPrice += item.quantity * item.product.price;
     }
     return totalPrice;
-
-    // for (let item of this.products) {
-    //   console.log(item.product.price); // 4.95
-    // }
-    // this.products.forEach((item) => console.log(item.product.price)); // 4.95
-    // console.log(this.products);
-    // -->
-    // [
-    //   {
-    //     product: Product {
-    //       name: 'Apple',
-    //       price: 4.95,
-    //       quantity: 8,
-    //       measure: 'each'
-    //     },
-    //     quantity: 5
-    //   }
-    // ]
   }
   addProduct(newProduct, quantity) {
-    const index = this.products.findIndex(
-      (el) => el.product.name === newProduct.name
-    );
+    if (newProduct.quantity >= quantity) {
+      const index = this.products.findIndex(
+        (el) => el.product.name === newProduct.name
+      );
 
-    if (index >= 0) {
-      this.products[index].quantity += quantity;
+      if (index >= 0) {
+        this.products[index].quantity += quantity;
+      } else {
+        this.products.push({ product: newProduct, quantity: quantity });
+      }
+
+      newProduct.stockDecrease(quantity);
+    } else if (newProduct.quantity === 0) {
+      console.log(
+        `Sorry, it seems we've run out of stock with ${newProduct.name}`
+      );
     } else {
-      this.products.push({ product: newProduct, quantity: quantity });
+      // if newProduct stock levels are below quantity but more than 0
+      console.log(
+        `Sorry, our stock levels for ${newProduct.name} is below ${quantity}. Adding ${newProduct.quantity} of ${newProduct.name} to the cart`
+      );
+      this.addProduct(newProduct, newProduct.quantity);
     }
-
-    newProduct.stockDecrease(quantity);
   }
 }
 
@@ -72,15 +66,19 @@ const apple = new Product("Apple", 4.95, "each", 20);
 const orange = new Product("Orange", 3.99, "each", 100);
 
 // apple.stockDecrease(12);
-console.log(apple.quantity);
+// console.log(apple.quantity);
 
 let cart = new ShoppingCart(apple, 2);
 
-cart.addProduct(apple, 3);
-cart.addProduct(orange, 3);
-// console.log(cart.products);
-
-console.log(cart.total);
-
+cart.addProduct(apple, 20);
+console.log(cart.products);
 console.log(apple.quantity);
-console.log(orange.quantity);
+
+cart.addProduct(apple, 5);
+console.log(cart.products);
+console.log(apple.quantity);
+// cart.addProduct(orange, 3);
+
+// console.log(cart.total);
+
+// console.log(orange.quantity);
