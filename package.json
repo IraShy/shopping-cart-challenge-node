@@ -1,0 +1,19 @@
+{
+  "name": "shopping-cart-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IraShy/shopping-cart-challenge-node.git"
+  },
+  "author": "IraShy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IraShy/shopping-cart-challenge-node/issues"
+  },
+  "homepage": "https://github.com/IraShy/shopping-cart-challenge-node#readme"
+}
