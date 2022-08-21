@@ -28,6 +28,7 @@ class ShoppingCart {
     return this.calcTotal();
   }
   calcTotal() {
+    // TODO: why didn't reduce work? (Error: prev.product was undefined)
     // return this.products.reduce(
     //   (prev, curr) =>
     //     prev.quantity * prev.product.price + curr.quantity * curr.product.price,
@@ -107,12 +108,12 @@ class ShoppingCart {
 const apple = new Product("Apple", 4.95, "each", 20);
 const orange = new Product("Orange", 3.99, "each", 100);
 
-let cart = new ShoppingCart(apple, 2);
+let cart = new ShoppingCart(apple);
 
 cart.addProduct(apple, 15);
 cart.updateProduct(apple, -10);
-cart.removeProduct(apple);
-cart.removeProduct(apple);
+// cart.removeProduct(apple);
+// cart.removeProduct(apple);
 
 // console.log(cart.products);
 console.log(apple.quantity);

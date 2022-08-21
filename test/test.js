@@ -1,3 +1,5 @@
+// TODO: write the actual tests
+
 // cd /path/to/my/project
 
 // install Mocha in Node (may be different for a browser):
