@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/IraShy/shopping-cart-challenge-node/issues"
   },
-  "homepage": "https://github.com/IraShy/shopping-cart-challenge-node#readme"
+  "homepage": "https://github.com/IraShy/shopping-cart-challenge-node#readme",
+  "devDependencies": {
+    "supertest": "^6.2.4"
+  }
 }

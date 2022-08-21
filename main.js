@@ -82,3 +82,26 @@ console.log(apple.quantity);
 // console.log(cart.total);
 
 // console.log(orange.quantity);
+
+// mocha tests demo
+
+module.exports = (req, res, next) => {
+  req.requestTime = Date.now();
+  next();
+};
+
+// integration tests
+// app.js
+const express = require("express");
+const app = (module.exports = express());
+// app.use(require('./lib/request-time'));
+app.get("unix-timestamp", (req, res) => {
+  res.json({
+    timestamp: Math.floor(req.requestTime / 1000),
+  });
+});
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log("Example app listening on port 3000");
+  });
+}
