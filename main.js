@@ -1,3 +1,6 @@
+// TODO: refactor so it's not a one-file app
+// TODO: error handling
+
 class Product {
   constructor(name, price, measure, quantity = 0) {
     this.name = name;
@@ -14,10 +17,10 @@ class Product {
 }
 
 class ShoppingCart {
+  // shopping cart created when a product is added to the cart
   constructor(productName, number = 1, user = "user") {
     this.products = [{ product: productName, quantity: number }];
     this.user = user;
-    // this.total = this.products[0].quantity * this.products[0].product.price;
     productName.stockDecrease(number);
   }
 
@@ -38,11 +41,12 @@ class ShoppingCart {
   }
   addProduct(newProduct, quantity) {
     // if newProduct stock is greater than the quantity added in the cart
+
+    // TODO: refactor: the if statement runs in every method
     if (newProduct.quantity >= quantity) {
       const index = this.products.findIndex(
         (el) => el.product.name === newProduct.name
       );
-
       if (index >= 0) {
         this.products[index].quantity += quantity;
       } else {
@@ -80,27 +84,46 @@ class ShoppingCart {
       console.log("This product is not in cart");
     }
   }
+
+  updateProduct(product, quantity) {
+    const index = this.products.findIndex(
+      (el) => el.product.name === product.name
+    );
+
+    if (index >= 0) {
+      // if quantity is negative and its absolute value is equal to quantity of the product in cart: remove the product
+      if (this.products[index].quantity === -1 * quantity) {
+        this.removeProduct(product);
+        // in all other cases, update the quantity with add: if quantity is negative, it will reduce the quantity in cart
+      } else {
+        this.addProduct(product, quantity);
+      }
+    } else {
+      console.log("This product is not in cart");
+    }
+  }
 }
 
 const apple = new Product("Apple", 4.95, "each", 20);
 const orange = new Product("Orange", 3.99, "each", 100);
 
-// apple.stockDecrease(12);
-// console.log(apple.quantity);
-
 let cart = new ShoppingCart(apple, 2);
 
 cart.addProduct(apple, 15);
-cart.addProduct(apple, 10);
-console.log(cart.products);
-console.log(apple.quantity);
-
+cart.updateProduct(apple, -10);
 cart.removeProduct(apple);
-console.log(cart.products);
+cart.removeProduct(apple);
+
+// console.log(cart.products);
 console.log(apple.quantity);
 
-// cart.addProduct(orange, 3);
+// cart.removeProduct(apple);
+// console.log(cart.products);
+// console.log(apple.quantity);
 
-// console.log(cart.total);
+cart.addProduct(orange, 3);
+console.log(cart.products);
+
+console.log(cart.total);
 
 // console.log(orange.quantity);
